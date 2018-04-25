@@ -7,6 +7,7 @@ import com.weather.android.db.City;
 import com.weather.android.db.County;
 import com.weather.android.db.Province;
 import com.weather.android.gson.Weather;
+import com.weather.android.gson.hourWeather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,6 +87,20 @@ public class Utility {
             JSONArray jsonArray=jsonObject.getJSONArray("HeWeather");
             String weatherContent=jsonArray.getJSONObject(0).toString();
             return new Gson().fromJson(weatherContent,Weather.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static hourWeather handleHourWeatherResponse(String response){
+        try {
+            if (response != null && response.startsWith("\ufeff")) {
+                response = response.substring(1);
+            }
+            JSONObject jsonObject=new JSONObject(response);
+            JSONArray jsonArray=jsonObject.getJSONArray("HeWeather6");
+            String weatherContent=jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,hourWeather.class);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -9,7 +9,7 @@
         android:layout_height="1dp"
 
 
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:background="#fff" />
     <TextView
         android:id="@+id/bodyTemperature"
@@ -18,7 +18,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:textSize="13sp"
         android:text="体感温度"/>
 <TextView
@@ -33,7 +33,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="15dp"
 
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:background="#fff" />
     <TextView
         android:id="@+id/humidity"
@@ -42,7 +42,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:textSize="13sp"
         android:text="湿度"/>
     <TextView
@@ -58,7 +58,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="15dp"
 
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:background="#fff" />
     <TextView
         android:id="@+id/precipitationy"
@@ -67,7 +67,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:textSize="13sp"
         android:text="降雨量"/>
     <TextView
@@ -83,7 +83,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="15dp"
 
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:background="#fff" />
     <TextView
         android:id="@+id/press"
@@ -92,7 +92,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:textSize="13sp"
         android:text="气压"/>
     <TextView
@@ -108,7 +108,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="15dp"
 
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:background="#fff" />
     <TextView
         android:id="@+id/visibility"
@@ -117,7 +117,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:textSize="13sp"
         android:text="能见度"/>
     <TextView
@@ -133,7 +133,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="15dp"
 
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:background="#fff" />
     <TextView
         android:id="@+id/wind"
@@ -142,7 +142,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:textSize="13sp"
         android:text="风速"/>
     <TextView
@@ -156,6 +156,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:alpha="0.55"
+        android:alpha="0.3"
         android:background="#fff" />
 </LinearLayout>

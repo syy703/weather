@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -13,11 +15,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -29,7 +35,9 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.weather.android.gson.FirstCity;
 import com.weather.android.gson.Forecast;
+import com.weather.android.gson.Hourly;
 import com.weather.android.gson.Weather;
+import com.weather.android.gson.hourWeather;
 import com.weather.android.util.HttpUtil;
 import com.weather.android.util.Utility;
 
@@ -49,11 +57,13 @@ import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity implements chooseAreaFragment.CallBackValue{
     private ScrollView weatherLayout;
+    private HorizontalScrollView horizontalScrollView;
     private TextView titleCity;
     private TextView titleUpdateTime;
     private TextView degreeText;
     private TextView weatherInfoText;
     private LinearLayout forecastLayout;
+    private LinearLayout hourLayout;
     private TextView bodyTemperatureText;//体感温度
     private TextView humidityText;//湿度
     private TextView precipitationText;//降水量
@@ -65,10 +75,8 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
     private TextView comfortText;
     private TextView carWashText;
     private TextView sportText;
-    private List<FirstCity> list;
     private ImageView bingPicImg;
     public SwipeRefreshLayout swipeRefresh;
-    private String mWeatherId;
     private BottomNavigationBar bottomNavigationBar;
     private String weatherId;
     @Override
@@ -88,6 +96,7 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
             loadBingPic();
         }
         weatherLayout=(ScrollView)findViewById(R.id.weather_layout);
+        horizontalScrollView=(HorizontalScrollView)findViewById(R.id.horizontalScrollView) ;
         swipeRefresh=(SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         if (weatherLayout != null) {
@@ -105,6 +114,7 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
         degreeText=(TextView) findViewById(R.id.degree_text);
         weatherInfoText=(TextView)findViewById(R.id.weather_info_text);
         forecastLayout=(LinearLayout)findViewById(R.id.forecast_layout);
+        hourLayout=(LinearLayout)findViewById(R.id.hour_layout);
         bodyTemperatureText=(TextView)findViewById(R.id.bodyTemperature_view);
         humidityText=(TextView)findViewById(R.id.humidity_view);
         precipitationText=(TextView)findViewById(R.id.precipitationy_view);
@@ -154,7 +164,9 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
             weatherId=getIntent().getStringExtra("id");
         }
             weatherLayout.setVisibility(View.INVISIBLE);
+            horizontalScrollView.setVisibility(View.INVISIBLE);
             requestWeather(weatherId);
+            requestHourWeather(weatherId);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -195,6 +207,46 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
                             showWeatherInfo(weather);
                         }else {
                             Toast.makeText(WeatherActivity.this,"获取天气信息失败",Toast.LENGTH_SHORT).show();
+                        }
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+
+            }
+        });
+        loadBingPic();
+    }
+
+    public void requestHourWeather(final  String weatherId){
+
+        String url="https://free-api.heweather.com/s6/weather/hourly?location="+weatherId+"&key=33164f04b13f40fe9daf7f29def65a08";
+        HttpUtil.sendOkHttpRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(WeatherActivity.this,"获取逐时天气信息失败",Toast.LENGTH_SHORT).show();
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseHourText=response.body().string();
+                final hourWeather hourWeather=Utility.handleHourWeatherResponse(responseHourText);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(hourWeather!=null && "ok".equals(hourWeather.status)){
+                            SharedPreferences.Editor editor=PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
+                            editor.putString("weatherHour",responseHourText);
+                            editor.apply();
+                            showHourWeatherInfo(hourWeather);
+                        }else {
+                            Toast.makeText(WeatherActivity.this,"获取逐时天气信息失败",Toast.LENGTH_SHORT).show();
                         }
                         swipeRefresh.setRefreshing(false);
                     }
@@ -253,6 +305,21 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+    }
+    private void showHourWeatherInfo(hourWeather weather){
+        hourLayout.removeAllViews();
+        for(Hourly hourly:weather.hourlyList){
+            View view= LayoutInflater.from(this).inflate(R.layout.hour_item,hourLayout,false);
+            TextView  dateHourText=(TextView)view.findViewById(R.id.date_hour_text);
+            TextView  weatherHourText=(TextView)view.findViewById(R.id.hour_weather_text);
+            TextView  temperatureHourText=(TextView)view.findViewById(R.id.hour_temperature_text);
+            dateHourText.setText(hourly.updateHourTime.split(" ")[1]);
+            temperatureHourText.setText(hourly.hourTemperature+"°");
+            weatherHourText.setText(hourly.weatherHourInfo);
+            hourLayout.addView(view);
+
+        }
+        horizontalScrollView.setVisibility(View.VISIBLE);
     }
 
     public static String getJson(String fileName,Context context,String name){

@@ -236,7 +236,7 @@ public class chooseAreaFragment extends Fragment {
     };
     @Override
     public void onAttach(Activity activity) {
-        // TODO Auto-generated method stub
+
         super.onAttach(activity);
         //当前fragment从activity重写了回调接口  得到接口的实例化对象
         callBackValue =(CallBackValue) getActivity();
