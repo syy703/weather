@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.weather.android.db.City;
 import com.weather.android.db.County;
 import com.weather.android.db.Province;
+import com.weather.android.db.chooseCity;
 import com.weather.android.util.HttpUtil;
 import com.weather.android.util.Utility;
 
@@ -54,7 +55,7 @@ public class chooseAreaFragment extends Fragment {
     private City selectedCity;
     private County selectedCounty;
     private int currentLevel;
-    CallBackValue callBackValue;
+//    CallBackValue callBackValue;
 
 
     @Override
@@ -82,17 +83,23 @@ public class chooseAreaFragment extends Fragment {
                     selectedCity=cityList.get(position);
                     queryCounties();
                 }else if(currentLevel==LEVEL_COUNTY) {
-                    String weatherId = countyList.get(position).getWeatherId();
-                    if (getActivity() instanceof choose) {
-                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
-                        intent.putExtra("weatherId", id);
-                        startActivity(intent);
-                        getActivity().finish();
-                    } else if (getActivity() instanceof WeatherActivity) {
-                        WeatherActivity activity = (WeatherActivity) getActivity();
-                        activity.swipeRefresh.setRefreshing(true);
-                        activity.requestWeather(weatherId);
-                    }
+                        String weatherId = countyList.get(position).getWeatherId();
+                        String cityName=countyList.get(position).getCountyName();
+                       List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
+                        if(list.isEmpty()) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("weatherId", weatherId);
+                            bundle.putString("cityName", cityName);
+                            bundle.putString("mark", "1");
+                            Intent intent = new Intent(getActivity(), choosedCity.class);
+                            // intent.putExtra("weatherId", weatherId);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+                    else {
+                            Toast.makeText(getContext(),"该城市已存在",Toast.LENGTH_SHORT).show();
+                        }
                 }
             }
         });
@@ -104,6 +111,8 @@ public class chooseAreaFragment extends Fragment {
                 }
                 else if(currentLevel==LEVEL_CITY){
                     queryProvinces();
+                }else if(currentLevel==LEVEL_PROVINCE){
+                    getActivity().finish();
                 }
             }
         });
@@ -112,7 +121,7 @@ public class chooseAreaFragment extends Fragment {
 
     private void queryProvinces(){
         titleText.setText("中国");
-        backButton.setVisibility(View.GONE);
+        backButton.setVisibility(View.VISIBLE);
         provinceList= DataSupport.findAll(Province.class);
         if(provinceList.size()>0){
             dataList.clear();
@@ -148,7 +157,7 @@ public class chooseAreaFragment extends Fragment {
     }
 
     private void queryCounties(){
-        titleText.setText(selectedCity.getCityName());
+        titleText.setText(selectedCity.getCityName()+"市");
         backButton.setVisibility(View.VISIBLE);
         countyList= DataSupport.where("cityid=? and countyname=?",String.valueOf(selectedCity.getId()),selectedCity.getCityName()).find(County.class);
         if(countyList.size()>0){
@@ -231,14 +240,14 @@ public class chooseAreaFragment extends Fragment {
         }
     }
 
-    public interface CallBackValue{
-        public void sendMessage(String value);
-    };
-    @Override
-    public void onAttach(Activity activity) {
-
-        super.onAttach(activity);
-        //当前fragment从activity重写了回调接口  得到接口的实例化对象
-        callBackValue =(CallBackValue) getActivity();
-    }
+//    public interface CallBackValue{
+//        public void sendMessage(String value);
+//    };
+//    @Override
+//    public void onAttach(Activity activity) {
+//
+//        super.onAttach(activity);
+//        //当前fragment从activity重写了回调接口  得到接口的实例化对象
+//        callBackValue =(CallBackValue) getActivity();
+//    }
 }

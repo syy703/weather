@@ -8,19 +8,23 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.weather.android.db.chooseCity;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public LocationClient locationClient;
+    private ImageView bingPicImg ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +82,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceiveLocation(BDLocation location){
             String a=location.getCity().substring(0,location.getCity().length()-1);
-            Intent intent=new Intent(MainActivity.this,WeatherActivity.class);
+            Intent intent=new Intent(MainActivity.this,Main.class);
             intent.putExtra("cityName",a);
             startActivity(intent);
+            overridePendingTransition(R.anim.fade, 0);
             finish();
+//            DataSupport.deleteAll(chooseCity.class);
+
         }
     }
+
 }

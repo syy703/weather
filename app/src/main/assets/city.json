@@ -1120,7 +1120,7 @@
           "cityCode": "101140401"
         },
         {
-          "cityName": "台北县",
+          "cityName": "台北",
           "cityCode": "101340101"
         },
         {
@@ -1470,7 +1470,17 @@
         {
           "cityName": "锦州",
           "cityCode": "101070701"
-        }
+        },
+  {"cityName":"澳门",
+    "cityCode":"101330101"
+
+},{"cityName":"香港",
+  "cityCode":"101320101"
+
+},{"cityName":"香港",
+  "cityCode":"101320101"
+
+}
       ]
 
 

@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +57,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class WeatherActivity extends AppCompatActivity implements chooseAreaFragment.CallBackValue{
+public class WeatherActivity extends AppCompatActivity {
+
+
     private ScrollView weatherLayout;
     private HorizontalScrollView horizontalScrollView;
     private TextView titleCity;
@@ -133,7 +137,7 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
         .setFirstSelectedPosition(-1);
       //  .setBarBackgroundColor(R.color.white);
          bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.add,""))
+         //       .addItem(new BottomNavigationItem(R.drawable.add,""))
         //        .addItem(new BottomNavigationItem(R.drawable.ic_launcher, ""))
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
@@ -156,22 +160,19 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
             public void onTabReselected(int position) {
             }
         });
-        if(weatherId==null) {
-            String cityName = getIntent().getStringExtra("cityName");
-            weatherId = getJson("city.json", this, cityName);
-        }
-        else {
-            weatherId=getIntent().getStringExtra("id");
-        }
-            weatherLayout.setVisibility(View.INVISIBLE);
-            horizontalScrollView.setVisibility(View.INVISIBLE);
-            requestWeather(weatherId);
-            requestHourWeather(weatherId);
+
+        String cityName = getIntent().getStringExtra("cityName");
+        weatherId = getJson("city.json", this, cityName);
+        weatherLayout.setVisibility(View.INVISIBLE);
+        horizontalScrollView.setVisibility(View.INVISIBLE);
+        requestWeather(weatherId);
+        requestHourWeather(weatherId);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh(){
                 requestWeather(weatherId);
+                requestHourWeather(weatherId);
             }
         });
 
@@ -376,15 +377,15 @@ public class WeatherActivity extends AppCompatActivity implements chooseAreaFrag
         });
 }
 
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-        transaction.replace(0,fragment);
-        transaction.commit();
-    }
-
-    @Override
-    public void sendMessage(String value){
-
-    }
+//    private void replaceFragment(Fragment fragment){
+//        FragmentManager fragmentManager=getSupportFragmentManager();
+//        FragmentTransaction transaction=fragmentManager.beginTransaction();
+//        transaction.replace(0,fragment);
+//        transaction.commit();
+//    }
+//
+//    @Override
+//    public void sendMessage(String value){
+//
+//    }
 }
