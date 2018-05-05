@@ -16,6 +16,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.weather.android.db.chooseCity;
+import com.weather.android.util.Utility;
 
 import org.litepal.crud.DataSupport;
 
@@ -28,27 +29,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        locationClient=new LocationClient(getApplicationContext());
-        locationClient.registerLocationListener(new MyLocationListener());
         setContentView(R.layout.activity_main);
-        List<String> list=new ArrayList<>();
+        boolean isConnected = Utility.isNetworkAvailable(getApplicationContext());
+        if (isConnected == false) {
+            Toast.makeText(getApplicationContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
+        } else {
+            locationClient = new LocationClient(getApplicationContext());
+            locationClient.registerLocationListener(new MyLocationListener());
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
-            list.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED){
-            list.add(Manifest.permission.READ_PHONE_STATE);
-        }
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            list.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if(!list.isEmpty()){
-            String[] permissions=list.toArray(new String[list.size()]);
-            ActivityCompat.requestPermissions(MainActivity.this,permissions,1);
-        }else{
-            requestLocation();
-        }
+            List<String> list = new ArrayList<>();
 
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                list.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                list.add(Manifest.permission.READ_PHONE_STATE);
+            }
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                list.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+            if (!list.isEmpty()) {
+                String[] permissions = list.toArray(new String[list.size()]);
+                ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
+            } else {
+                requestLocation();
+            }
+
+        }
     }
     private void requestLocation(){
         LocationClientOption option=new LocationClientOption();

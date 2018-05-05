@@ -457,15 +457,13 @@ public class MyFragment extends Fragment {
             }else if(weather.now.more.info.equals("多云")){
                 Glide.with(this).load(R.drawable.bg_cloudy_day).dontAnimate().into(bingPicImg);
             }else if(weather.now.more.info.equals("阴")){
-                Glide.with(this).load(R.drawable.bg_overcast).dontAnimate().into(bingPicImg);
-            }else if(weather.now.more.info.substring(1,2).equals("雨")){
                 Glide.with(this).load(R.drawable.bg_rain).dontAnimate().into(bingPicImg);
+            }else if(weather.now.more.info.substring(1,2).equals("雨")){
+                Glide.with(this).load(R.drawable.bg_overcast).dontAnimate().into(bingPicImg);
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
                 Glide.with(this).load(R.drawable.bg_snow).dontAnimate().into(bingPicImg);
             }else if(weather.now.more.info.equals("雷阵雨")){
-                Glide.with(this).load(R.drawable.bg_thunder_storm).dontAnimate().into(bingPicImg);
-            }else if(weather.now.more.info.equals("阵雨")){
                 Glide.with(this).load(R.drawable.bg_thunder_storm).dontAnimate().into(bingPicImg);
             }else if(weather.now.more.info.contains("雾")){
                 Glide.with(this).load(R.drawable.bg_fog).dontAnimate().into(bingPicImg);
@@ -475,20 +473,18 @@ public class MyFragment extends Fragment {
         }
         else {
             if(weather.now.more.info.equals("晴")){
-                Glide.with(this).load(R.drawable.night).dontAnimate().into(bingPicImg);
+                Glide.with(this).load(R.drawable.bg_fine_night).dontAnimate().into(bingPicImg);
 
             }else if(weather.now.more.info.equals("多云")){
                 Glide.with(this).load(R.drawable.city).dontAnimate().into(bingPicImg);
             }else if(weather.now.more.info.equals("阴")){
-                Glide.with(this).load(R.drawable.bg_overcast).dontAnimate().into(bingPicImg);
+                Glide.with(this).load(R.drawable.bg_cloudy_night).dontAnimate().into(bingPicImg);
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
                 Glide.with(this).load(R.drawable.bg_rain).dontAnimate().into(bingPicImg);
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
                 Glide.with(this).load(R.drawable.bg_snow_night).dontAnimate().into(bingPicImg);
             }else if(weather.now.more.info.equals("雷阵雨")){
-                Glide.with(this).load(R.drawable.bg_thunder_storm).dontAnimate().into(bingPicImg);
-            }else if(weather.now.more.info.equals("阵雨")){
                 Glide.with(this).load(R.drawable.bg_thunder_storm).dontAnimate().into(bingPicImg);
             }else if(weather.now.more.info.contains("雾")){
                 Glide.with(this).load(R.drawable.bg_fog).dontAnimate().into(bingPicImg);
