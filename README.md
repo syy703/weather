@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-WeatherÊÇÒ»¿î»ùÓÚAndroid¶Ë¿ªÔ´µÄÌìÆøÔ¤±¨Èí¼þ£¬¾ß±¸²é¿´È«¹úµÄÊ¡ÊÐÏØ¡¢²éÑ¯ÈÎÒâ³ÇÊÐÌìÆø¡¢×ÔÓÉÇÐ»»³ÇÊÐ¡¢ÊÖ¶¯¸üÐÂÌìÆø¡¢ºóÌ¨×Ô¶¯¸üÐÂÌìÆøµÈ¹¦ÄÜ¡£AppÖÐµÄÌìÆøÊý¾ÝÓÉºÍ·çÌìÆøÌá¹©£¬±³¾°Í¼Æ¬ÓÉ±ØÓ¦Ìá¹©£¬´úÂë×ñÑ­Apache v2 License¿ªÔ´Ð­Òé¡£±¾Èí¼þÖ÷Òª×÷ÎªÑ§Ï°ºÍ½»Á÷Ê¹ÓÃ¡£
-=======
-Weatheræ˜¯ä¸€æ¬¾åŸºäºŽAndroidç«¯å¼€æºçš„å¤©æ°”é¢„æŠ¥è½¯ä»¶ï¼Œå…·å¤‡æŸ¥çœ‹å…¨å›½çš„çœå¸‚ã€æŸ¥è¯¢ä»»æ„åŸŽå¸‚å¤©æ°”ã€è‡ªç”±åˆ‡æ¢åŸŽå¸‚ã€æ‰‹åŠ¨æ›´æ–°å¤©æ°”ã€åŽå°è‡ªåŠ¨æ›´æ–°å¤©æ°”ç­‰åŠŸèƒ½ã€‚Appä¸­çš„å¤©æ°”æ•°æ®ç”±å’Œé£Žå¤©æ°”æä¾›ï¼ŒèƒŒæ™¯å›¾ç‰‡ç”±å¿…åº”æä¾›ï¼Œä»£ç éµå¾ªApache v2 Licenseå¼€æºåè®®ã€‚æœ¬è½¯ä»¶ä¸»è¦ä½œä¸ºå­¦ä¹ å’Œäº¤æµä½¿ç”¨ã€‚
->>>>>>> e3bd4da43259ea2cbbfb92016906b9c317611283
+WeatherÊÇÒ»¿î»ùÓÚAndroid¶Ë¿ªÔ´µÄÌìÆøÔ¤±¨Èí¼þ£¬¾ß±¸²é¿´È«¹úµÄÊ¡ÊÐ¡¢²éÑ¯ÈÎÒâ³ÇÊÐÌìÆø¡¢×ÔÓÉÇÐ»»³ÇÊÐ¡¢ÊÖ¶¯¸üÐÂÌìÆø¡¢ºóÌ¨×Ô¶¯¸üÐÂÌìÆøµÈ¹¦ÄÜ¡£AppÖÐµÄÌìÆøÊý¾ÝÓÉºÍ·çÌìÆøÌá¹©£¬±³¾°Í¼Æ¬ÓÉ±ØÓ¦Ìá¹©£¬´úÂë×ñÑ­Apache v2 License¿ªÔ´Ð­Òé¡£±¾Èí¼þÖ÷Òª×÷ÎªÑ§Ï°ºÍ½»Á÷Ê¹ÓÃ¡£
