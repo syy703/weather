@@ -17,7 +17,6 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.weather.android.db.cacheCityList;
 import com.weather.android.db.chooseCity;
-import com.weather.android.service.AutoUpdateService;
 import com.weather.android.util.Utility;
 
 import org.litepal.crud.DataSupport;
@@ -96,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             String a=location.getCity().substring(0,location.getCity().length()-1);
             Intent intent=new Intent(MainActivity.this,Main.class);
             intent.putExtra("cityName",a);
-
          //   intent.putExtra("activityName",getClass().getSimpleName());
             startActivity(intent);
             overridePendingTransition(R.anim.fade, 0);
