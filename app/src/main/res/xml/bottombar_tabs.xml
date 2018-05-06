@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml xmlns:android="http://schemas.android.com/apk/res/android">
+    <tabs>
+        <tab
+            id="@+id/bar"
+            icon="@drawable/topbar_icon_side"
+            title=""
+            barColorWhenSelected="#5D4037" />
+
+    </tabs>
+
+</xml>
