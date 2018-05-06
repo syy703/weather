@@ -219,7 +219,7 @@ public class MyFragment extends Fragment {
         String degree=weather.now.temperature +"°";
         String weatherInfo=weather.now.more.info;
         titleCity.setText(cityName);
-       // titleUpdateTime.setText(updateTime);
+        titleUpdateTime.setText("上次更新:"+updateTime);
         degreeText.setText(degree);
         weatherInfoText.setText(weatherInfo);
         List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
@@ -456,8 +456,8 @@ public class MyFragment extends Fragment {
                 Glide.with(this).load(R.drawable.bg_fine_night).dontAnimate().into(bingPicImg);
                 return R.drawable.bg_fine_night;
             }else if(weather.now.more.info.equals("多云")){
-                Glide.with(this).load(R.drawable.city).dontAnimate().into(bingPicImg);
-                return R.drawable.city;
+                Glide.with(this).load(R.drawable.bg_cloudy_night).dontAnimate().into(bingPicImg);
+                return R.drawable.bg_cloudy_night;
             }else if(weather.now.more.info.equals("阴")){
                 Glide.with(this).load(R.drawable.bg_cloudy_night).dontAnimate().into(bingPicImg);
                 return R.drawable.bg_cloudy_night;

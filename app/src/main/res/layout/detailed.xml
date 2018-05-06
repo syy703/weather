@@ -18,7 +18,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.4"
+        android:alpha="0.5"
         android:textSize="13sp"
         android:text="体感温度"/>
 <TextView
@@ -42,7 +42,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.4"
+        android:alpha="0.5"
         android:textSize="13sp"
         android:text="湿度"/>
     <TextView
@@ -67,7 +67,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.4"
+        android:alpha="0.5"
         android:textSize="13sp"
         android:text="降雨量"/>
     <TextView
@@ -92,7 +92,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.4"
+        android:alpha="0.5"
         android:textSize="13sp"
         android:text="气压"/>
     <TextView
@@ -117,7 +117,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.4"
+        android:alpha="0.5"
         android:textSize="13sp"
         android:text="能见度"/>
     <TextView
@@ -142,7 +142,7 @@
         android:layout_marginLeft="15dp"
 
         android:textColor="#fff"
-        android:alpha="0.4"
+        android:alpha="0.5"
         android:textSize="13sp"
         android:text="风速"/>
     <TextView
