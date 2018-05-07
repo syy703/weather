@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.weather.android.db.cacheCityList;
@@ -256,7 +257,8 @@ public class MyFragment extends Fragment {
             TextView minText=(TextView)view.findViewById(R.id.min_text);
             String date=Utility.getWeek(forecast.date);
             dateText.setText(date);
-            infoText.setImageResource(Utility.getImageView(forecast.more.info));
+           // infoText.setImageResource(Utility.getImageView(forecast.more.info));
+            Glide.with(this).load(Utility.getImageView(forecast.more.info)).skipMemoryCache(true).dontAnimate().into(infoText);
             maxText.setText(forecast.temperature.max);
             minText.setText(forecast.temperature.min);
             forecastLayout.addView(view);
