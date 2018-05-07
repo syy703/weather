@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -240,14 +241,4 @@ public class chooseAreaFragment extends Fragment {
         }
     }
 
-//    public interface CallBackValue{
-//        public void sendMessage(String value);
-//    };
-//    @Override
-//    public void onAttach(Activity activity) {
-//
-//        super.onAttach(activity);
-//        //当前fragment从activity重写了回调接口  得到接口的实例化对象
-//        callBackValue =(CallBackValue) getActivity();
-//    }
 }

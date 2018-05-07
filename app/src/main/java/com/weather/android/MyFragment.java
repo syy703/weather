@@ -377,7 +377,7 @@ public class MyFragment extends Fragment {
                    e.printStackTrace();
                }
                long hour=getHourDiffer(new Date(),cityList.getUpdateTime());//上次更新和当前时间相差的小时数
-               if(hour>2){
+               if(hour>=2){
                    requestWeather(weatherId,locationCity);
                }
            }

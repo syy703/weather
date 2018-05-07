@@ -72,6 +72,7 @@ public class AutoUpdateService extends Service {
                         }
 
                             cCityList.setResponseText(responseText);
+                            cCityList.setUpdateTime(new Date());
                             cCityList.updateAll("cityname=? ",weather.basic.cityName);
 
                     }
