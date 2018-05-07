@@ -5,6 +5,8 @@ import com.weather.android.gson.Weather;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.Date;
+
 /**
  * Created by syy on 2018/5/6.
  */
@@ -17,6 +19,16 @@ public class cacheCityList extends DataSupport {
     private int imgId;
 
    private String responseText;
+
+    private Date updateTime;
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public String getResponseText() {
         return responseText;

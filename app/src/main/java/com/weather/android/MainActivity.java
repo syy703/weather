@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             String a=location.getCity().substring(0,location.getCity().length()-1);
             Intent intent=new Intent(MainActivity.this,Main.class);
             intent.putExtra("cityName",a);
-         //   intent.putExtra("activityName",getClass().getSimpleName());
             startActivity(intent);
             overridePendingTransition(R.anim.fade, 0);
             finish();

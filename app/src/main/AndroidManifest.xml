@@ -37,7 +37,6 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".WeatherActivity" />
         <activity android:name=".choose" />
         <activity android:name=".choosedCity"
             android:launchMode="singleTask"/>

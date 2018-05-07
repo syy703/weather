@@ -91,6 +91,7 @@ public class MyFragment extends Fragment {
     public String cityName;
     private Button cityButton;
     private String locationCity;
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,6 +135,9 @@ public class MyFragment extends Fragment {
                     public void run() {
                         if(weather!=null && "ok".equals(weather.status)){
                             cacheCityList cCityList=new cacheCityList();
+                            Date now=new Date();
+                            String date=sdf.format(now);
+                            titleUpdateTime.setText("最后更新:"+date.split(" ")[1]);
                             try {
                                 cCityList.setImgId(loadBackGround(weather));
                             } catch (ParseException e) {
@@ -142,6 +146,7 @@ public class MyFragment extends Fragment {
                             List<cacheCityList> list=DataSupport.where("cityname=?",cityName).find(cacheCityList.class);
                             if(list.isEmpty()){
 
+                                cCityList.setUpdateTime(now);
                                 cCityList.setResponseText(responseText);
                                 cCityList.setCityName(cityName);
 
@@ -149,6 +154,7 @@ public class MyFragment extends Fragment {
                             }
                             else {
                                 cCityList.setResponseText(responseText);
+                                cCityList.setUpdateTime(now);
                                 cCityList.updateAll("cityname=? ",cityName);
                             }
 
@@ -210,16 +216,15 @@ public class MyFragment extends Fragment {
     }
 
     private void showWeatherInfo(Weather weather)throws ParseException{
-
         if(weather.basic.cityName.equals(locationCity)){
             locationView.setVisibility(View.VISIBLE);
         }
         String cityName=weather.basic.cityName;
-        String updateTime=weather.basic.update.updateTime.split(" ")[1];
+      //  String updateTime=weather.basic.update.updateTime.split(" ")[1];
         String degree=weather.now.temperature +"°";
         String weatherInfo=weather.now.more.info;
         titleCity.setText(cityName);
-        titleUpdateTime.setText("上次更新:"+updateTime);
+       // titleUpdateTime.setText("最后更新:"+sdf.format(new Date()));
         degreeText.setText(degree);
         weatherInfoText.setText(weatherInfo);
         List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
@@ -246,12 +251,12 @@ public class MyFragment extends Fragment {
         for(Forecast forecast:weather.forecastList){
             View view= LayoutInflater.from(getContext()).inflate(R.layout.forecast_item,forecastLayout,false);
             TextView dateText=(TextView)view.findViewById(R.id.date_text);
-            TextView infoText=(TextView) view.findViewById(R.id.info_text);
+            ImageView infoText=(ImageView) view.findViewById((R.id.info_text));
             TextView maxText=(TextView)view.findViewById(R.id.max_text);
             TextView minText=(TextView)view.findViewById(R.id.min_text);
             String date=Utility.getWeek(forecast.date);
             dateText.setText(date);
-            infoText.setText((forecast.more.info));
+            infoText.setImageResource(Utility.getImageView(forecast.more.info));
             maxText.setText(forecast.temperature.max);
             minText.setText(forecast.temperature.min);
             forecastLayout.addView(view);
@@ -288,11 +293,11 @@ public class MyFragment extends Fragment {
         for(Hourly hourly:weather.hourlyList){
             View view= LayoutInflater.from(getContext()).inflate(R.layout.hour_item,hourLayout,false);
             TextView  dateHourText=(TextView)view.findViewById(R.id.date_hour_text);
-            TextView  weatherHourText=(TextView)view.findViewById(R.id.hour_weather_text);
+            ImageView  weatherHourText=(ImageView) view.findViewById(R.id.hour_weather_text);
             TextView  temperatureHourText=(TextView)view.findViewById(R.id.hour_temperature_text);
             dateHourText.setText(hourly.updateHourTime.split(" ")[1]);
             temperatureHourText.setText(hourly.hourTemperature+"°");
-            weatherHourText.setText(hourly.weatherHourInfo);
+            weatherHourText.setImageResource(Utility.getImageView(hourly.weatherHourInfo));
             hourLayout.addView(view);
 
         }
@@ -362,10 +367,16 @@ public class MyFragment extends Fragment {
        if(!cityLists.isEmpty()){
            for(cacheCityList cityList:cityLists) {
                Glide.with(getContext()).load(cityList.getImgId()).dontAnimate().into(bingPicImg);
+
+               titleUpdateTime.setText("最后更新:"+sdf.format(cityList.getUpdateTime()).split(" ")[1]);
                try {
                    showWeatherInfo(Utility.handleWeatherResponse(cityList.getResponseText()));
                } catch (ParseException e) {
                    e.printStackTrace();
+               }
+               long hour=getHourDiffer(new Date(),cityList.getUpdateTime());//上次更新和当前时间相差的小时数
+               if(hour>2){
+                   requestWeather(weatherId,locationCity);
                }
            }
 
@@ -479,5 +490,11 @@ public class MyFragment extends Fragment {
                 return R.drawable.bg_fine_night;
             }
         }
+    }
+
+    public long getHourDiffer(Date now,Date ago){
+        long diff=now.getTime()-ago.getTime();
+        long hourDiff=diff/(1000*60*60);
+        return hourDiff;
     }
 }

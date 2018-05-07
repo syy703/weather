@@ -22,11 +22,12 @@
         android:textColor="#fff"/>
 
 
-    <TextView
+    <ImageView
         android:id="@+id/hour_weather_text"
-        android:layout_gravity="center"
+
         android:layout_width="60dp"
         android:layout_height="match_parent"
+        android:layout_marginLeft="-14dp"
         android:layout_weight="1"
         android:textColor="#fff"/>
 
@@ -39,9 +40,10 @@
         android:textColor="#fff"/>
     <TextView
         android:id="@+id/hour_temperature_text"
-        android:layout_gravity="center"
-        android:layout_width="60dp"
+
+        android:layout_width="30dp"
         android:layout_height="match_parent"
+        android:layout_marginLeft="7dp"
         android:layout_weight="1"
         android:textColor="#fff"/>
 

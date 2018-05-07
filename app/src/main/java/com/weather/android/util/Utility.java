@@ -140,58 +140,58 @@ public class Utility {
         int imgId=0;
         switch (data){
             case "晴":
-                imgId= R.drawable.clear;
+                imgId= R.drawable.iclockweather_w1;
                 break;
             case "多云":
-                imgId= R.drawable.cloudy;
+                imgId= R.drawable.iclockweather_w2;
                 break;
             case "阴":
-                imgId= R.drawable.overcast;
+                imgId= R.drawable.iclockweather_w3;
                 break;
             case "阵雨":
-                imgId= R.drawable.showerrain;
+                imgId= R.drawable.iclockweather_w8;
                 break;
             case "雷阵雨":
-                imgId= R.drawable.thunder;
+                imgId= R.drawable.iclockweather_w9;
                 break;
             case "小雨":
-                imgId=R.drawable.lightrain;
+                imgId=R.drawable.iclockweather_w4;
                 break;
             case "中雨":
-                imgId=R.drawable.moderaterain;
+                imgId=R.drawable.iclockweather_w5;
                 break;
             case "大雨":
-                imgId=R.drawable.heavyrain;
+                imgId=R.drawable.iclockweather_w6;
                 break;
             case "暴雨":
-                imgId=R.drawable.rainstrom;
+                imgId=R.drawable.iclockweather_w7;
                 break;
             case "小雪":
-                imgId=R.drawable.lightsnow;
+                imgId=R.drawable.iclockweather_w11;
                 break;
             case "中雪":
-                imgId=R.drawable.moderatesnow;
+                imgId=R.drawable.iclockweather_w12;
                 break;
             case "大雪":
-                imgId=R.drawable.heavysnow;
+                imgId=R.drawable.iclockweather_w13;
                 break;
             case "暴雪":
-                imgId=R.drawable.blizzard;
+                imgId=R.drawable.iclockweather_w14;
                 break;
             case "雾":
-                imgId=R.drawable.fog;
+                imgId=R.drawable.iclockweather_w17;
                 break;
             case "霾":
-                imgId=R.drawable.haze;
+                imgId=R.drawable.iclockweather_w17;
                 break;
             case "雨夹雪":
-                imgId=R.drawable.sleet;
+                imgId=R.drawable.iclockweather_w10;
                 break;
             case "台风":
                 imgId=R.drawable.typhoon;
                 break;
             case "冰雹":
-                imgId=R.drawable.ice;
+                imgId=R.drawable.iclockweather_w18;
                 break;
             default:
                 imgId=R.drawable.unknown;

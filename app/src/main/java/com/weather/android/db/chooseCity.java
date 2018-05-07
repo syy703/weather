@@ -8,7 +8,7 @@ import org.litepal.crud.DataSupport;
 
 public class chooseCity extends DataSupport{
 
-   private int id;
+    private int id;
 
     public int getId() {
         return id;

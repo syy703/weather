@@ -26,6 +26,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.bumptech.glide.Glide;
+import com.weather.android.db.cacheCityList;
 import com.weather.android.db.chooseCity;
 import com.weather.android.gson.Forecast;
 import com.weather.android.gson.Weather;
@@ -51,6 +52,7 @@ public class choosedCity extends AppCompatActivity {
     private FloatingActionButton addButton;
     private List<String> dataList = new ArrayList<>();
     private List<chooseCity> chooseCityList = new ArrayList<>();
+    private List<cacheCityList> cacheCityList=new ArrayList<>();
     private cityAdapter cityAdapter;
 
     @Override
@@ -65,6 +67,7 @@ public class choosedCity extends AppCompatActivity {
         }
         initItem();
         chooseCityList = DataSupport.findAll(com.weather.android.db.chooseCity.class);
+        cacheCityList=DataSupport.findAll(com.weather.android.db.cacheCityList.class);
         cityAdapter = new cityAdapter(choosedCity.this, R.layout.city_item, chooseCityList);
         swipeMenuListView = (SwipeMenuListView) findViewById(R.id.choosedCity_list_view);
         swipeMenuListView.setAdapter(cityAdapter);
@@ -109,8 +112,10 @@ public class choosedCity extends AppCompatActivity {
                 switch (index) {
                     case 0:
                         DataSupport.deleteAll(chooseCity.class, "cityname=?", chooseCityList.get(position).getCityName());
+                        DataSupport.deleteAll(cacheCityList.class,"cityname=?",cacheCityList.get(position).getCityName());
                         //  List<chooseCity> cityList = DataSupport.findAll(chooseCity.class);
                         chooseCityList.remove(position);
+                        cacheCityList.remove(position);
                         cityAdapter.notifyDataSetChanged();
                         break;
 
@@ -192,7 +197,7 @@ public class choosedCity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(choosedCity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
-                        //swipeRefresh.setRefreshing(false);
+
                     }
                 });
             }
@@ -210,7 +215,7 @@ public class choosedCity extends AppCompatActivity {
                         } else {
                             Toast.makeText(choosedCity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
                         }
-                        //     swipeRefresh.setRefreshing(false);
+
                     }
                 });
 

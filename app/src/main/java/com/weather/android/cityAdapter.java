@@ -11,7 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.weather.android.db.LocationCity;
 import com.weather.android.db.chooseCity;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ import java.util.List;
 public class cityAdapter extends ArrayAdapter<chooseCity> {
     private List<chooseCity> list;
     private int resourceId;
-
+    private List<LocationCity> city= DataSupport.findAll(LocationCity.class);
     public cityAdapter(Context context, int textViewResourceId, List<chooseCity> list){
         super(context,textViewResourceId,list);
         resourceId=textViewResourceId;
@@ -43,6 +46,7 @@ public class cityAdapter extends ArrayAdapter<chooseCity> {
             viewHolder.cityInfo=(ImageView)view.findViewById(R.id.cityInfo);
             viewHolder.cityName=(TextView)view.findViewById(R.id.cityName);
             viewHolder.cityTemperature=(TextView)view.findViewById(R.id.cityTemperature);
+            viewHolder.location=(ImageView)view.findViewById(R.id.location);
             view.setTag(viewHolder);
         }
         else {
@@ -52,12 +56,18 @@ public class cityAdapter extends ArrayAdapter<chooseCity> {
         viewHolder.cityTemperature.setText(chooseCity.getTemperature());
         viewHolder.cityName.setText(chooseCity.getCityName());
         viewHolder.cityInfo.setImageResource(chooseCity.getImgId());
+        for(LocationCity locationCity:city){
+            if(chooseCity.getCityName().equals(locationCity.getLocationCity())){
+                viewHolder.location.setImageResource(R.drawable.ic_location);
+            }
+        }
         return view;
     }
     class ViewHolder{
         ImageView cityInfo;
         TextView cityName;
         TextView cityTemperature;
+        ImageView location;
     }
 
 
