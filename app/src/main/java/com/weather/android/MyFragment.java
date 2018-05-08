@@ -2,12 +2,8 @@ package com.weather.android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,18 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
 import com.weather.android.db.cacheCityList;
 import com.weather.android.db.chooseCity;
 import com.weather.android.gson.Forecast;
 import com.weather.android.gson.Hourly;
 import com.weather.android.gson.Weather;
 import com.weather.android.gson.hourWeather;
-import com.weather.android.service.AutoUpdateService;
 import com.weather.android.util.HttpUtil;
 import com.weather.android.util.Utility;
 
@@ -46,14 +37,11 @@ import org.litepal.crud.DataSupport;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -441,14 +429,14 @@ public class MyFragment extends Fragment {
                 Glide.with(this).load(R.drawable.bg_na).dontAnimate().into(bingPicImg);
                 return R.drawable.bg_na;
             }else if(weather.now.more.info.equals("多云")){
-                Glide.with(this).load(R.drawable.bg_cloudy_day).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_cloudy_day;
+                Glide.with(this).load(R.drawable.cloudy_day).dontAnimate().into(bingPicImg);
+                return R.drawable.cloudy_day;
             }else if(weather.now.more.info.equals("阴")){
-                Glide.with(this).load(R.drawable.bg_rain).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_rain;
+                Glide.with(this).load(R.drawable.overcast_day).dontAnimate().into(bingPicImg);
+                return R.drawable.overcast_day;
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
-                Glide.with(this).load(R.drawable.bg_overcast).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_overcast;
+                Glide.with(this).load(R.drawable.bg_rainy_day).dontAnimate().into(bingPicImg);
+                return R.drawable.bg_rainy_day;
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
                 Glide.with(this).load(R.drawable.bg_snow).dontAnimate().into(bingPicImg);
@@ -475,8 +463,8 @@ public class MyFragment extends Fragment {
                 Glide.with(this).load(R.drawable.bg_cloudy_night).dontAnimate().into(bingPicImg);
                 return R.drawable.bg_cloudy_night;
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
-                Glide.with(this).load(R.drawable.bg_rain).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_rain;
+                Glide.with(this).load(R.drawable.bg_rainy_night).dontAnimate().into(bingPicImg);
+                return R.drawable.bg_rainy_night;
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
                 Glide.with(this).load(R.drawable.bg_snow_night).dontAnimate().into(bingPicImg);

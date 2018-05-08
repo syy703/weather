@@ -145,6 +145,12 @@ public class Utility {
             case "多云":
                 imgId= R.drawable.iclockweather_w2;
                 break;
+            case "晴间多云":
+                imgId= R.drawable.iclockweather_w2;
+                break;
+            case "少云":
+                imgId= R.drawable.iclockweather_w3;
+                break;
             case "阴":
                 imgId= R.drawable.iclockweather_w3;
                 break;
@@ -152,6 +158,15 @@ public class Utility {
                 imgId= R.drawable.iclockweather_w8;
                 break;
             case "雷阵雨":
+                imgId= R.drawable.iclockweather_w9;
+                break;
+            case "强雷阵雨":
+                imgId= R.drawable.iclockweather_w9;
+                break;
+            case "雷阵雨伴有冰雹":
+                imgId= R.drawable.iclockweather_w18;
+                break;
+            case "强阵雨":
                 imgId= R.drawable.iclockweather_w9;
                 break;
             case "小雨":
@@ -165,6 +180,18 @@ public class Utility {
                 break;
             case "暴雨":
                 imgId=R.drawable.iclockweather_w7;
+                break;
+            case "大暴雨":
+                imgId=R.drawable.iclockweather_w7;
+                break;
+            case "特大暴雨":
+                imgId=R.drawable.iclockweather_w7;
+                break;
+            case "极端降雨":
+                imgId=R.drawable.iclockweather_w7;
+                break;
+            case "毛毛雨/细雨":
+                imgId=R.drawable.iclockweather_w4;
                 break;
             case "小雪":
                 imgId=R.drawable.iclockweather_w11;
@@ -181,10 +208,16 @@ public class Utility {
             case "雾":
                 imgId=R.drawable.iclockweather_w17;
                 break;
+            case "薄雾":
+                imgId=R.drawable.iclockweather_w17;
+                break;
             case "霾":
                 imgId=R.drawable.iclockweather_w17;
                 break;
             case "雨夹雪":
+                imgId=R.drawable.iclockweather_w10;
+                break;
+            case "雨雪天气":
                 imgId=R.drawable.iclockweather_w10;
                 break;
             case "台风":

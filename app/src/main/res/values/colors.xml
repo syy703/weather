@@ -9,4 +9,14 @@
     <color name="DimGray">#696969</color>
     <color name="black">#000000</color>
     <color name="Gray">#808080</color>
+    <color name="LightSeaGreen">#20B2AA</color>
+    <color name="DarkCyan">#008B8B</color>
+    <color name="Turquoise">#40E0D0</color>
+    <color name="MediumAquamarine">#00FA9A</color>
+    <color name="MediumSpringGreen">#F5FFFA</color>
+    <color name="LawnGreen">#f500fca4</color>
+    <color name="ForestGreen">#228B22</color>
+    <color name="LightGreen">#90EE90</color>
+    <color name="Green">#008000</color>
+    <color name="Cyan">#00FFFF</color>
 </resources>

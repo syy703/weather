@@ -66,7 +66,7 @@ public class choosedCity extends AppCompatActivity {
         if(actionBar!=null){
             actionBar.hide();
         }
-        initItem();
+       // initItem();
         chooseCityList = DataSupport.findAll(com.weather.android.db.chooseCity.class);
         cacheCityList=DataSupport.findAll(com.weather.android.db.cacheCityList.class);
         cityAdapter = new cityAdapter(choosedCity.this, R.layout.city_item, chooseCityList);
@@ -97,7 +97,7 @@ public class choosedCity extends AppCompatActivity {
                 // set item width
                 deleteItem.setWidth(dp2px(60));
                 // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete);
+                deleteItem.setIcon(R.drawable.delete);
                 // add to menu
 
                 menu.addMenuItem(deleteItem);
@@ -113,10 +113,10 @@ public class choosedCity extends AppCompatActivity {
                 switch (index) {
                     case 0:
                         DataSupport.deleteAll(chooseCity.class, "cityname=?", chooseCityList.get(position).getCityName());
-                        DataSupport.deleteAll(cacheCityList.class,"cityname=?",cacheCityList.get(position).getCityName());
+                     //   DataSupport.deleteAll(cacheCityList.class,"cityname=?",cacheCityList.get(position).getCityName());
                         //  List<chooseCity> cityList = DataSupport.findAll(chooseCity.class);
                         chooseCityList.remove(position);
-                        cacheCityList.remove(position);
+                  //      cacheCityList.remove(position);
                         cityAdapter.notifyDataSetChanged();
                         break;
 
