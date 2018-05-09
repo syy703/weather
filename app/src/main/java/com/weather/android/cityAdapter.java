@@ -58,7 +58,7 @@ public class cityAdapter extends ArrayAdapter<chooseCity> {
         viewHolder.cityInfo.setImageResource(chooseCity.getImgId());
         for(LocationCity locationCity:city){
             if(chooseCity.getCityName().equals(locationCity.getLocationCity())){
-                viewHolder.location.setImageResource(R.drawable.ic_location);
+                viewHolder.location.setImageResource(R.drawable.left_location_city);
             }
         }
         return view;

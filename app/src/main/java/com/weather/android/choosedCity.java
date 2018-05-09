@@ -137,7 +137,7 @@ public class choosedCity extends AppCompatActivity {
                // intent.setFlags(intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 intent.putExtras(bundle);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade, 0);
+                overridePendingTransition(R.anim.fade,0);
             }
         });
 

@@ -4,32 +4,32 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/location"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white"/>
+        android:backgroundTint="@color/Gray"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/cityName"
-        android:textSize="30dp"
-        android:textColor="#fff"
+        android:textSize="35dp"
+        android:textColor="@color/black"
         />
     <ImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="-1dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/cityInfo"
-        android:backgroundTint="@color/white"/>
+        android:backgroundTint="@color/Gray"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="-80dp"
         android:id="@+id/cityTemperature"
-        android:textSize="30dp"
-        android:textColor="#fff"
+        android:textSize="35dp"
+        android:textColor="@color/Gray"
         />
 </LinearLayout>

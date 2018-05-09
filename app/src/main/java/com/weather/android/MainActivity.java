@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent=new Intent(MainActivity.this,Main.class);
             intent.putExtra("cityName",a);
             startActivity(intent);
-            overridePendingTransition(R.anim.fade, 0);
             finish();
+            overridePendingTransition(R.anim.fade,0);
  //           DataSupport.deleteAll(cacheCityList.class);
 //            List<cacheCityList> list=DataSupport.findAll(cacheCityList.class);
 //            for(cacheCityList cityList:list){
