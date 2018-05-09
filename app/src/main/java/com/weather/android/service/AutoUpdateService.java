@@ -98,13 +98,13 @@ public class AutoUpdateService extends Service {
                 return R.drawable.bg_na;
             }else if(weather.now.more.info.equals("多云")){
               //  Glide.with(this).load(R.drawable.bg_cloudy_day).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_cloudy_day;
+                return R.drawable.cloudy_day;
             }else if(weather.now.more.info.equals("阴")){
               //  Glide.with(this).load(R.drawable.bg_rain).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_rain;
+                return R.drawable.overcast_day;
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
              //   Glide.with(this).load(R.drawable.bg_overcast).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_overcast;
+                return R.drawable.rainy_day;
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
               //  Glide.with(this).load(R.drawable.bg_snow).dontAnimate().into(bingPicImg);
@@ -126,13 +126,13 @@ public class AutoUpdateService extends Service {
                 return R.drawable.bg_fine_night;
             }else if(weather.now.more.info.equals("多云")){
              //   Glide.with(this).load(R.drawable.city).dontAnimate().into(bingPicImg);
-                return R.drawable.city;
+                return R.drawable.bg_cloudy_night;
             }else if(weather.now.more.info.equals("阴")){
               //  Glide.with(this).load(R.drawable.bg_cloudy_night).dontAnimate().into(bingPicImg);
                 return R.drawable.bg_cloudy_night;
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
              //   Glide.with(this).load(R.drawable.bg_rain).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_rain;
+                return R.drawable.bg_rainy_night;
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
              //   Glide.with(this).load(R.drawable.bg_snow_night).dontAnimate().into(bingPicImg);

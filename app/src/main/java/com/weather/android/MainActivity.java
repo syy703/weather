@@ -1,8 +1,12 @@
 package com.weather.android;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,12 +22,16 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.weather.android.db.cacheCityList;
 import com.weather.android.db.chooseCity;
+import com.weather.android.service.AutoUpdateService;
+import com.weather.android.service.NotificationService;
 import com.weather.android.util.Utility;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
     public LocationClient locationClient;
@@ -39,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
+            notification();
+            startService(new Intent(this,AutoUpdateService.class));
             locationClient = new LocationClient(getApplicationContext());
             locationClient.registerLocationListener(new MyLocationListener());
 
@@ -117,5 +127,33 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+    public void notification(){
+        long systemTime = System.currentTimeMillis();//当前时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long selectTime = calendar.getTimeInMillis();//设定定点时间
+        if(systemTime > selectTime) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            selectTime = calendar.getTimeInMillis();
+        }
+        long time = selectTime - systemTime;
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long triggerAtTime = SystemClock.elapsedRealtime() + time;
+        Intent i = new Intent(this, AlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        //manager.cancel(pi);
+        //  manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            manager.setWindow(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, AlarmManager.INTERVAL_DAY, pi);
+        }
+            else{
+                manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, AlarmManager.INTERVAL_DAY, pi);
+            }
 
+    }
 }

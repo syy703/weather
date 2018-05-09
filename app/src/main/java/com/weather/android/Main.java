@@ -105,9 +105,7 @@ public class Main extends AppCompatActivity {
         }
 
         locationCityName=getIntent().getStringExtra("cityName");
-      //  activityName=getIntent().getStringExtra("activityName");
         final  List<LocationCity> locationCityList=DataSupport.findAll(LocationCity.class);
-
         if(locationCityName!=null) {
             List<chooseCity> list = DataSupport.where("cityname=?", locationCityName).find(chooseCity.class);
 
@@ -138,8 +136,15 @@ public class Main extends AppCompatActivity {
             viewPager.setCurrentItem(0);
         }
         else {
-            int viewPosition = getIntent().getExtras().getInt("position");
-            viewPager.setCurrentItem(viewPosition);
+           // int viewPosition = getIntent().getExtras().getInt("position");
+            Bundle bundle = getIntent().getExtras();
+            if(bundle!=null) {
+                int viewPosition = bundle.getInt("position");
+                viewPager.setCurrentItem(viewPosition);
+            }
+            else {
+                viewPager.setCurrentItem(0);
+            }
         }
     }
     @Override

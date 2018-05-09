@@ -435,8 +435,8 @@ public class MyFragment extends Fragment {
                 Glide.with(this).load(R.drawable.overcast_day).dontAnimate().into(bingPicImg);
                 return R.drawable.overcast_day;
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
-                Glide.with(this).load(R.drawable.bg_rainy_day).dontAnimate().into(bingPicImg);
-                return R.drawable.bg_rainy_day;
+                Glide.with(this).load(R.drawable.rainy_day).dontAnimate().into(bingPicImg);
+                return R.drawable.rainy_day;
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
                 Glide.with(this).load(R.drawable.bg_snow).dontAnimate().into(bingPicImg);
