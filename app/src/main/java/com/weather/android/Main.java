@@ -105,13 +105,9 @@ public class Main extends AppCompatActivity {
         }
 
         locationCityName=getIntent().getStringExtra("cityName");
-        final  List<LocationCity> locationCityList=DataSupport.findAll(LocationCity.class);
         if(locationCityName!=null) {
             List<chooseCity> list = DataSupport.where("cityname=?", locationCityName).find(chooseCity.class);
-
-            if(locationCityList.size()!=0) {
-                DataSupport.deleteAll(LocationCity.class);
-            }
+            DataSupport.deleteAll(LocationCity.class);
             LocationCity locationCity=new LocationCity();
             locationCity.setLocationCity(locationCityName);
             locationCity.save();
@@ -119,9 +115,9 @@ public class Main extends AppCompatActivity {
                 arrayList.add(locationCityName);
             }
         }
-        if(locationCityList.size()!=0){
-            for(int i=0;i<locationCityList.size();i++)
-                locationCityName=locationCityList.get(i).getLocationCity();
+        else{
+              List<LocationCity> locationCityList=DataSupport.findAll(LocationCity.class);
+              locationCityName=locationCityList.get(0).getLocationCity();
         }
         viewPager.setOffscreenPageLimit(arrayList.size());
         for (int i = 0; i < arrayList.size(); i++) {
@@ -130,7 +126,9 @@ public class Main extends AppCompatActivity {
             viewPagerAdapter = new ViewPagerAdapter(this, getSupportFragmentManager(), fragmentList);
         }
         viewPager.setAdapter(viewPagerAdapter);
-        circleIndicator.setViewPager(viewPager);
+        if(arrayList.size()>1) {
+            circleIndicator.setViewPager(viewPager);
+        }
         viewPagerAdapter.notifyDataSetChanged();
         if(isConnected==false){
             viewPager.setCurrentItem(0);

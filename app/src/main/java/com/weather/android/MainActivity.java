@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        notification();
+        startService(new Intent(this,AutoUpdateService.class));
         boolean isConnected = Utility.isNetworkAvailable(getApplicationContext());
         if (isConnected == false) {
             Toast.makeText(getApplicationContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
@@ -47,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            notification();
-            startService(new Intent(this,AutoUpdateService.class));
             locationClient = new LocationClient(getApplicationContext());
             locationClient.registerLocationListener(new MyLocationListener());
 
