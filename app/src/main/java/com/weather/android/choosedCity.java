@@ -102,7 +102,7 @@ public class choosedCity extends AppCompatActivity {
                 deleteItem.setWidth(dp2px(60));
                 // set a icon
                 deleteItem.setIcon(R.drawable.delete);
-                // add to menu
+                // add to nav_menu
 
                 menu.addMenuItem(deleteItem);
             }
@@ -160,7 +160,7 @@ public class choosedCity extends AppCompatActivity {
         handleIntent(intent);
     }
     private void handleIntent(Intent intent){
-        if(intent!=null){
+        if(intent.getExtras()!=null){
             String weatherId=intent.getExtras().getString("weatherId");
             String cityName=intent.getExtras().getString("cityName");
             List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);

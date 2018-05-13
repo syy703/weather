@@ -3,9 +3,11 @@ package com.weather.android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.weather.android.gson.Hourly;
 import com.weather.android.gson.Weather;
 import com.weather.android.gson.hourWeather;
 import com.weather.android.util.HttpUtil;
+import com.weather.android.util.TypefaceUtil;
 import com.weather.android.util.Utility;
 
 import org.json.JSONArray;
@@ -37,6 +40,7 @@ import org.litepal.crud.DataSupport;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,6 +85,7 @@ public class MyFragment extends Fragment {
     private Button cityButton;
     private String locationCity;
     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -153,7 +158,21 @@ public class MyFragment extends Fragment {
                                 e.printStackTrace();
                             }
 
-
+                            List<chooseCity> chooseCityList = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
+                            if (chooseCityList.isEmpty()) {
+                                chooseCity city = new chooseCity();
+                                city.setCityName(cityName);
+                                city.setCityCode(weatherId);
+                                city.setImgId(Utility.getImageView(weather.now.more.info));
+                                city.setTemperature(weather.now.temperature +"°");
+                                city.save();
+                            }
+                            else {
+                                chooseCity city=new chooseCity();
+                                city.setTemperature(weather.now.temperature +"°");
+                                city.setImgId(Utility.getImageView(weather.now.more.info));
+                                city.updateAll("cityname=?",cityName);
+                            }
                         }else {
                             Toast.makeText(getActivity(),"获取天气信息失败",Toast.LENGTH_SHORT).show();
                         }
@@ -205,6 +224,7 @@ public class MyFragment extends Fragment {
     }
 
     private void showWeatherInfo(Weather weather)throws ParseException{
+        TypefaceUtil typefaceUtil=new TypefaceUtil(getContext(),"fonts/Roboto-Light.ttf");
         if(weather.basic.cityName.equals(locationCity)){
             locationView.setVisibility(View.VISIBLE);
         }
@@ -213,24 +233,27 @@ public class MyFragment extends Fragment {
         String degree=weather.now.temperature +"°";
         String weatherInfo=weather.now.more.info;
         titleCity.setText(cityName);
+        typefaceUtil.setTypeface(titleCity,false);
        // titleUpdateTime.setText("最后更新:"+sdf.format(new Date()));
         degreeText.setText(degree);
+        typefaceUtil.setTypeface(degreeText,false);
         weatherInfoText.setText(weatherInfo);
-        List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
-        if (list.isEmpty()) {
-            chooseCity city = new chooseCity();
-            city.setCityName(cityName);
-            city.setCityCode(weatherId);
-            city.setImgId(Utility.getImageView(weatherInfo));
-            city.setTemperature(degree);
-            city.save();
-        }
-        else {
-            chooseCity city=new chooseCity();
-            city.setTemperature(degree);
-            city.setImgId(Utility.getImageView(weatherInfo));
-            city.updateAll("cityname=?",cityName);
-        }
+        typefaceUtil.setTypeface(weatherInfoText,false);
+//        List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
+//        if (list.isEmpty()) {
+//            chooseCity city = new chooseCity();
+//            city.setCityName(cityName);
+//            city.setCityCode(weatherId);
+//            city.setImgId(Utility.getImageView(weatherInfo));
+//            city.setTemperature(degree);
+//            city.save();
+//        }
+//        else {
+//            chooseCity city=new chooseCity();
+//            city.setTemperature(degree);
+//            city.setImgId(Utility.getImageView(weatherInfo));
+//            city.updateAll("cityname=?",cityName);
+//        }
 
         Date now=new Date();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
@@ -240,9 +263,12 @@ public class MyFragment extends Fragment {
         for(Forecast forecast:weather.forecastList){
             View view= LayoutInflater.from(getContext()).inflate(R.layout.forecast_item,forecastLayout,false);
             TextView dateText=(TextView)view.findViewById(R.id.date_text);
+            typefaceUtil.setTypeface(dateText,false);
             ImageView infoText=(ImageView) view.findViewById((R.id.info_text));
             TextView maxText=(TextView)view.findViewById(R.id.max_text);
+            typefaceUtil.setTypeface(maxText,false);
             TextView minText=(TextView)view.findViewById(R.id.min_text);
+            typefaceUtil.setTypeface(minText,false);
             String date=Utility.getWeek(forecast.date);
             dateText.setText(date);
            // infoText.setImageResource(Utility.getImageView(forecast.more.info));
@@ -329,16 +355,16 @@ public class MyFragment extends Fragment {
        comfortText = (TextView) view.findViewById(R.id.comfort_text);
        carWashText = (TextView) view.findViewById(R.id.car_wash_text);
        sportText = (TextView) view.findViewById(R.id.sport_text);
-       cityButton=(Button)view.findViewById(R.id.cityButton);
-       cityButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(getActivity(), choosedCity.class);
-               intent.putExtra("cityName", cityName);
-               intent.putExtra("cityCode", weatherId);
-               startActivity(intent);
-           }
-       });
+//       cityButton=(Button)view.findViewById(R.id.cityButton);
+//       cityButton.setOnClickListener(new View.OnClickListener() {
+//           @Override
+//           public void onClick(View v) {
+//               Intent intent = new Intent(getActivity(), choosedCity.class);
+////               intent.putExtra("cityName", cityName);
+////               intent.putExtra("cityCode", weatherId);
+//               startActivity(intent);
+//           }
+//       });
 
 
 

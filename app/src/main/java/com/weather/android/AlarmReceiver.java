@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import com.weather.android.db.LocationCity;
 import com.weather.android.db.cacheCityList;
 import com.weather.android.gson.Weather;
-import com.weather.android.service.NotificationService;
 import com.weather.android.util.Utility;
 
 import org.litepal.crud.DataSupport;

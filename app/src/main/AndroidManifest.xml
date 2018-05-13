@@ -44,17 +44,13 @@
             android:launchMode="singleTask" />
         <activity android:name=".Main" />
 
-        <service
-            android:name=".service.NotificationService"
-            android:enabled="true"
-            android:exported="true" />
-
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" />
 
-        </receiver>
+        <activity android:name=".about" />
+        <activity android:name=".setting"></activity>
     </application>
 
 </manifest>

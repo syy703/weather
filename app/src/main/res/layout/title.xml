@@ -4,14 +4,14 @@
      android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
 
-    <Button
-        android:id="@+id/cityButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:backgroundTint="@color/lightGrey"
-        android:background="@drawable/topbar_icon_side"/>
+    <!--<Button-->
+        <!--android:id="@+id/cityButton"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:backgroundTint="@color/lightGrey"-->
+        <!--android:background="@drawable/topbar_icon_side"/>-->
 
     <TextView
         android:id="@+id/locationView"

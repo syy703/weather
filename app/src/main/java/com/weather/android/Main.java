@@ -6,9 +6,14 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +21,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -49,6 +55,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
@@ -65,7 +72,9 @@ public class Main extends AppCompatActivity {
     public String cityName;
     public String locationCityName;
     boolean isConnected;
-  //  public String activityName;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Button cityButton;
 
     //主界面
     @Override
@@ -73,10 +82,20 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(R.layout.main);
-         isConnected = Utility.isNetworkAvailable(getApplicationContext());
+        drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        navigationView=(NavigationView)findViewById(R.id.nav_view);
+        drawerLayout.setFitsSystemWindows(true);
+        drawerLayout.setClipToPadding(false);
+        isConnected = Utility.isNetworkAvailable(getApplicationContext());
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         circleIndicator=(CircleIndicator)findViewById(R.id.indicator);
-
+        cityButton=(Button)findViewById(R.id.cityButton) ;
+        cityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
         initMain();
         Log.d("Main",getClass().getSimpleName()+ "onCreate");
     }
@@ -98,6 +117,23 @@ public class Main extends AppCompatActivity {
     }
 
     public void initMain() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id=item.getItemId();
+                switch (id){
+                    case R.id.home:
+                        Intent intent1=new Intent(getApplicationContext(),choosedCity.class);
+                        startActivity(intent1);
+                        break;
+                    case R.id.about:
+                          Intent intent=new Intent(getApplicationContext(),about.class);
+                          startActivity(intent);
+                        break;
+                }
+                return  true;
+            }
+        });
         final List<chooseCity> cityList = DataSupport.findAll(com.weather.android.db.chooseCity.class);
         List<String> arrayList = new ArrayList<>();
         for (chooseCity city : cityList) {

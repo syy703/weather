@@ -34,4 +34,5 @@ dependencies {
     compile 'com.roughike:bottom-bar:2.0.2'
     compile 'me.relex:circleindicator:1.2.1@aar'
     compile 'com.android.support:design:24.2.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

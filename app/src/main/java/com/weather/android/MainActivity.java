@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,10 +19,8 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.weather.android.db.cacheCityList;
-import com.weather.android.db.chooseCity;
+import com.weather.android.db.Setting;
 import com.weather.android.service.AutoUpdateService;
-import com.weather.android.service.NotificationService;
 import com.weather.android.util.Utility;
 
 import org.litepal.crud.DataSupport;
@@ -109,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.fade,0);
- //           DataSupport.deleteAll(cacheCityList.class);
+              //DataSupport.deleteAll(Setting.class);
 //            List<cacheCityList> list=DataSupport.findAll(cacheCityList.class);
 //            for(cacheCityList cityList:list){
 //                System.out.println(cityList.getCityName());
