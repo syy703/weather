@@ -127,13 +127,18 @@ public class choosedCity extends AppCompatActivity {
     @Override
     protected void onRestart(){
         super.onRestart();
-      //  initItem();
         Log.d("choosedCity",getClass().getSimpleName()+"onRestart");
     }
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d("choosedCity",getClass().getSimpleName()+"onNewIntent");
+        if(intent.getExtras()==null) {
+            List<chooseCity> chooseCityList = DataSupport.findAll(com.weather.android.db.chooseCity.class);
+            chooseCityList.clear();
+            chooseCityList.addAll(chooseCityList);
+            cityAdapter.notifyDataSetChanged();
+        }
         handleIntent(intent);
     }
     private void handleIntent(Intent intent){
