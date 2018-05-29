@@ -7,44 +7,73 @@
         android:id="@+id/about_item"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:text="关于"
-            />
+        android:background="#20B2AA">
+
         <Button
             android:id="@+id/back"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/ic_back"/>
+            android:background="@drawable/ic_back"
+            />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:text="关于"
+            android:layout_alignBottom="@+id/back"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:layout_below="@+id/about_item">
-    <TextView
-        android:id="@+id/about_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="本软件数据由和风天气提供"
-        android:layout_centerInParent="true"
-        android:textSize="20sp"
-        android:textColor="@color/Gray"/>
+       <ImageView
+           android:id="@+id/imageView"
+           android:layout_width="match_parent"
+           android:layout_height="250dp"
+           android:background="@drawable/sun_main_blue"/>
+
        <TextView
+           android:id="@+id/about_text_gitHub"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="作者:syy"
-           android:layout_centerInParent="true"
-           android:textColor="@color/Gray"
-           android:textSize="20sp"
-           android:layout_below="@+id/about_text"/>
-       </RelativeLayout>
+           android:text="gitHub地址:https://github.com/syy703/weather"
+           android:textSize="15sp"
+           android:textColor="@color/DimGray"
+           android:layout_below="@+id/about_text"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_marginTop="17dp" />
+
+       <TextView
+           android:id="@+id/about_text"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="数据来源:本软件数据由和风天气提供"
+
+           android:textSize="15sp"
+           android:textColor="@color/DimGray"
+           android:layout_below="@+id/imageView"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_marginTop="11dp" />
+
+       <TextView
+           android:id="@+id/about_text_email"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="QQ邮箱:448063091@qq.com"
+           android:textSize="15sp"
+           android:textColor="@color/DimGray"
+           android:layout_marginTop="18dp"
+           android:layout_below="@+id/about_text_gitHub"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true" />
+   </RelativeLayout>
 </RelativeLayout>

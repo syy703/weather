@@ -1,4 +1,4 @@
-package com.weather.android;
+package com.weather.android.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.weather.android.R;
+import com.weather.android.choosedCity;
 import com.weather.android.db.City;
 import com.weather.android.db.County;
 import com.weather.android.db.Province;

@@ -1,4 +1,4 @@
-package com.weather.android;
+package com.weather.android.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.weather.android.R;
 import com.weather.android.db.LocationCity;
 import com.weather.android.db.chooseCity;
 
@@ -24,6 +25,8 @@ import java.util.List;
  */
 
 public class cityAdapter extends ArrayAdapter<chooseCity> {
+//    public static final int TYPE_SWIPE = 0;
+//    public static final int TYPE_NON_SWIPE = 1;
     private List<chooseCity> list;
     private int resourceId;
     private List<LocationCity> city= DataSupport.findAll(LocationCity.class);
@@ -32,11 +35,24 @@ public class cityAdapter extends ArrayAdapter<chooseCity> {
         resourceId=textViewResourceId;
     }
 
-    public void setParams(List<chooseCity> list){
-        this.list=list;
-    }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public int getViewTypeCount() {
+        // menu type count
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // 设置定位城市不能滑动
+        chooseCity choose=getItem(position);
+        boolean is=choose.getCityName().equals(city.get(0).getLocationCity());
+        return is ? 0:1;
+    }
+
+
+    @NonNull
+    @Override
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         chooseCity chooseCity=getItem(position);
         View view;
         ViewHolder viewHolder;

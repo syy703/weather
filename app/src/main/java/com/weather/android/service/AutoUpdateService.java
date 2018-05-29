@@ -4,15 +4,12 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 
 
-import com.bumptech.glide.Glide;
 import com.weather.android.R;
-import com.weather.android.db.cacheCityList;
+import com.weather.android.db.cacheCity;
 import com.weather.android.gson.Weather;
 import com.weather.android.util.HttpUtil;
 import com.weather.android.util.Utility;
@@ -53,8 +50,8 @@ public class AutoUpdateService extends Service {
      * 更新天气信息。
      */
     private void updateWeather() {
-        List<cacheCityList> list = DataSupport.findAll(cacheCityList.class);
-        for (cacheCityList cityList : list) {
+        List<cacheCity> list = DataSupport.findAll(cacheCity.class);
+        for (cacheCity cityList : list) {
             Weather cacheWeather = Utility.handleWeatherResponse(cityList.getResponseText());
             String weatherId = cacheWeather.basic.weatherId;
             String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=33164f04b13f40fe9daf7f29def65a08";
@@ -64,7 +61,7 @@ public class AutoUpdateService extends Service {
                     String responseText = response.body().string();
                     Weather weather = Utility.handleWeatherResponse(responseText);
                     if (weather != null && "ok".equals(weather.status)) {
-                        cacheCityList cCityList=new cacheCityList();
+                        cacheCity cCityList=new cacheCity();
                         try {
                             cCityList.setImgId(loadBackGround(weather));
                         } catch (ParseException e) {
@@ -104,7 +101,7 @@ public class AutoUpdateService extends Service {
                 return R.drawable.overcast_day;
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
              //   Glide.with(this).load(R.drawable.bg_overcast).dontAnimate().into(bingPicImg);
-                return R.drawable.rainy_day;
+                return R.drawable.day_rainy;
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
               //  Glide.with(this).load(R.drawable.bg_snow).dontAnimate().into(bingPicImg);

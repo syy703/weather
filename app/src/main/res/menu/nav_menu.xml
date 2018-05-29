@@ -4,8 +4,14 @@
             android:id="@+id/home"
             android:icon="@drawable/home"
             android:title="城市管理"/>
+        <item android:id="@+id/count"
+            android:icon="@drawable/count"
+            android:title="天气分析"/>
     <item android:id="@+id/about"
         android:icon="@drawable/about"
         android:title="关于"/>
+        <!--<item android:id="@+id/share"-->
+            <!--android:icon="@drawable/share"-->
+            <!--android:title="分享"/>-->
     </group>
 </menu>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+     android:id="@+id/scrollView_title_layout"
      android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
 
@@ -38,4 +38,14 @@
         android:layout_centerVertical="true"
         android:textColor="#fff"
         android:textSize="10sp"/>
+
+    <Button
+        android:id="@+id/share_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/share_white"
+        android:layout_alignBaseline="@+id/title_update_time"
+        android:layout_alignBottom="@+id/title_update_time"
+        android:layout_toLeftOf="@+id/title_update_time"
+        android:layout_toStartOf="@+id/title_update_time" />
 </RelativeLayout>

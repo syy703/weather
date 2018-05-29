@@ -1,66 +1,36 @@
 package com.weather.android;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.bumptech.glide.Glide;
+import com.mob.MobSDK;
+import com.weather.android.Adapter.MyPagerAdapter;
+import com.weather.android.Adapter.ViewPagerAdapter;
+import com.weather.android.Fragment.MyFragment;
 import com.weather.android.db.LocationCity;
 import com.weather.android.db.chooseCity;
-import com.weather.android.gson.Forecast;
-import com.weather.android.gson.Hourly;
-import com.weather.android.gson.Weather;
-import com.weather.android.gson.hourWeather;
-import com.weather.android.util.HttpUtil;
 import com.weather.android.util.Utility;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import me.relex.circleindicator.CircleIndicator;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class Main extends AppCompatActivity {
     private List<View> viewList = new ArrayList<>();//ViewPager数据源
@@ -126,10 +96,17 @@ public class Main extends AppCompatActivity {
                         Intent intent1=new Intent(getApplicationContext(),choosedCity.class);
                         startActivity(intent1);
                         break;
+                    case R.id.count:
+                        Intent intent2=new Intent(getApplicationContext(),countActivity.class);
+                        startActivity(intent2);
+                        break;
                     case R.id.about:
                           Intent intent=new Intent(getApplicationContext(),about.class);
                           startActivity(intent);
                         break;
+//                    case R.id.share:
+//
+//                          break;
                 }
                 return  true;
             }

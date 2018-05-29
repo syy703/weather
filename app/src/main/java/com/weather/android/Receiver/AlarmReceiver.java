@@ -1,4 +1,4 @@
-package com.weather.android;
+package com.weather.android.Receiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,8 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import com.weather.android.Main;
+import com.weather.android.R;
 import com.weather.android.db.LocationCity;
-import com.weather.android.db.cacheCityList;
+import com.weather.android.db.cacheCity;
 import com.weather.android.gson.Weather;
 import com.weather.android.util.Utility;
 
@@ -27,7 +29,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         if (!locationList.isEmpty()&&locationList.get(0)!=null) {
             String name=locationList.get(0).getLocationCity();
-            List<cacheCityList> list=DataSupport.where("cityname=?",name).find(cacheCityList.class);
+            List<cacheCity> list=DataSupport.where("cityname=?",name).find(cacheCity.class);
             Weather weather= Utility.handleWeatherResponse(list.get(0).getResponseText());
             String max=weather.forecastList.get(1).temperature.max;
             String min=weather.forecastList.get(1).temperature.min;

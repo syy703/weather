@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.mob.sdk'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.weather.android"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -18,7 +18,23 @@ android {
         }
     }
 }
+MobSDK {
+    appKey "25fe89e1697a8"
+    appSecret "14fba1363ddbf5d50d1c8543b63981cc"
 
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            Wechat {
+                appKey "25fe89e1697a8"
+                appSecret "14fba1363ddbf5d50d1c8543b63981cc"
+            }
+
+
+        }
+    }
+
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

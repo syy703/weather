@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by syy on 2018/5/6.
  */
 
-public class cacheCityList extends DataSupport {
+public class cacheCity extends DataSupport {
     private int id;
 
     private String cityName;

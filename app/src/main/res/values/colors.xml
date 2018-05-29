@@ -19,4 +19,18 @@
     <color name="LightGreen">#90EE90</color>
     <color name="Green">#008000</color>
     <color name="Cyan">#00FFFF</color>
+    <color name="color1">#FFFFFF</color>
+    <color name="color2">#FAFAFA</color>
+    <color name="color5">#B0B0B0</color>
+    <color name="color6">#606060</color>
+    <color name="color11">#1AB392</color>
+    <color name="color13">#F08200</color>
+    <color name="skyBlue">#87CEEB</color>
+    <color name="LightBlue">#ADD8E6</color>
+    <color name="Azure">#F0FFFF</color>
+    <color name="Navy">#000080</color>
+    <color name="DoderBlue">#1E90FF</color>
+    <color name="LightSteelBlue">#B0C4DE</color>
+    <color name="DeepSkyBlue">#00BFFF</color>
+    <color name="blue">(38,173,205)</color>
 </resources>

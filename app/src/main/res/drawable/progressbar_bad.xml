@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 背景 -->
+    <item android:id="@android:id/background">
+        <shape>
+            <!-- 圆角 -->
+            <corners android:radius="0dp" />
+            <!-- 填充色 -->
+            <solid android:color="@android:color/transparent" />
+            <!-- 边框 -->
+            <stroke
+                android:width="1px"
+                android:color="@color/color13" />
+        </shape>
+    </item>
+
+    <!-- 进度条 -->
+    <item android:id="@android:id/progress">
+        <!-- 方向 -->
+        <clip
+            android:clipOrientation="horizontal"
+            android:gravity="right">
+            <shape>
+                <!-- 圆角 -->
+                <corners android:radius="0dp" />
+                <!-- 填充色 -->
+                <solid android:color="@color/color13" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

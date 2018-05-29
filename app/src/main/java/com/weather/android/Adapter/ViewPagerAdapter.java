@@ -1,4 +1,4 @@
-package com.weather.android;
+package com.weather.android.Adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

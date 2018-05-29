@@ -1,29 +1,35 @@
-package com.weather.android;
+package com.weather.android.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Typeface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.bumptech.glide.Glide;
-import com.weather.android.db.cacheCityList;
+import com.mob.MobSDK;
+import com.weather.android.MainActivity;
+import com.weather.android.R;
+import com.weather.android.View.ObserveScrollView;
+import com.weather.android.View.RewritePopwindow;
+import com.weather.android.db.cacheCity;
 import com.weather.android.db.chooseCity;
 import com.weather.android.gson.Forecast;
 import com.weather.android.gson.Hourly;
@@ -38,14 +44,15 @@ import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -55,10 +62,15 @@ import okhttp3.Response;
  */
 
 public class MyFragment extends Fragment {
-    private ScrollView weatherLayout;
+    private RelativeLayout shareTitleLayout;
+    private RewritePopwindow mPopwindow;
+    private ObserveScrollView weatherLayout;
     private HorizontalScrollView horizontalScrollView;
     private TextView titleCity;
+    private Button shareButton;
     private TextView titleUpdateTime;
+    private TextView shareTileCity;
+    private TextView shareTitleUpdateTime;
     private TextView degreeText;
     private TextView weatherInfoText;
     private TextView nowDataText;
@@ -78,11 +90,9 @@ public class MyFragment extends Fragment {
     private TextView sportText;
     private ImageView bingPicImg;
     public SwipeRefreshLayout swipeRefresh;
-    private BottomNavigationBar bottomNavigationBar;
     private TextView locationView;
     private String weatherId;
     public String cityName;
-    private Button cityButton;
     private String locationCity;
     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -128,7 +138,7 @@ public class MyFragment extends Fragment {
                     @Override
                     public void run() {
                         if(weather!=null && "ok".equals(weather.status)){
-                            cacheCityList cCityList=new cacheCityList();
+                            cacheCity cCityList=new cacheCity();
                             Date now=new Date();
                             String date=sdf.format(now);
                             titleUpdateTime.setText("最后更新:"+date.split(" ")[1]);
@@ -137,7 +147,7 @@ public class MyFragment extends Fragment {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            List<cacheCityList> list=DataSupport.where("cityname=?",cityName).find(cacheCityList.class);
+                            List<cacheCity> list=DataSupport.where("cityname=?",cityName).find(cacheCity.class);
                             if(list.isEmpty()){
 
                                 cCityList.setUpdateTime(now);
@@ -229,32 +239,16 @@ public class MyFragment extends Fragment {
             locationView.setVisibility(View.VISIBLE);
         }
         String cityName=weather.basic.cityName;
-      //  String updateTime=weather.basic.update.updateTime.split(" ")[1];
         String degree=weather.now.temperature +"°";
         String weatherInfo=weather.now.more.info;
         titleCity.setText(cityName);
+        shareTileCity.setText(cityName);
+        shareTitleUpdateTime.setText(titleUpdateTime.getText());
         typefaceUtil.setTypeface(titleCity,false);
-       // titleUpdateTime.setText("最后更新:"+sdf.format(new Date()));
         degreeText.setText(degree);
         typefaceUtil.setTypeface(degreeText,false);
         weatherInfoText.setText(weatherInfo);
         typefaceUtil.setTypeface(weatherInfoText,false);
-//        List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
-//        if (list.isEmpty()) {
-//            chooseCity city = new chooseCity();
-//            city.setCityName(cityName);
-//            city.setCityCode(weatherId);
-//            city.setImgId(Utility.getImageView(weatherInfo));
-//            city.setTemperature(degree);
-//            city.save();
-//        }
-//        else {
-//            chooseCity city=new chooseCity();
-//            city.setTemperature(degree);
-//            city.setImgId(Utility.getImageView(weatherInfo));
-//            city.updateAll("cityname=?",cityName);
-//        }
-
         Date now=new Date();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
         String str=simpleDateFormat.format(now);
@@ -321,7 +315,10 @@ public class MyFragment extends Fragment {
     }
    public void init(final  String cityName,View view,final String locationCity){
        weatherId = getJson("city.json", getContext(), cityName);
-       weatherLayout = (ScrollView) view.findViewById(R.id.weather_layout);
+       shareTitleLayout=(RelativeLayout)view.findViewById(R.id.share_title_layout);
+       shareTitleLayout.setVisibility(View.INVISIBLE);
+       shareButton=(Button)view.findViewById(R.id.share_button);
+       weatherLayout = (ObserveScrollView) view.findViewById(R.id.weather_layout);
        horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.horizontalScrollView);
        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
@@ -337,6 +334,8 @@ public class MyFragment extends Fragment {
        }
        titleCity = (TextView) view.findViewById(R.id.title_city);
        titleUpdateTime = (TextView) view.findViewById(R.id.title_update_time);
+       shareTileCity=(TextView)view.findViewById(R.id.share_title_city);
+       shareTitleUpdateTime=(TextView)view.findViewById(R.id.share_title_update_time);
        locationView=(TextView)view.findViewById(R.id.locationView);
        degreeText = (TextView) view.findViewById(R.id.degree_text);
        weatherInfoText = (TextView) view.findViewById(R.id.weather_info_text);
@@ -355,19 +354,6 @@ public class MyFragment extends Fragment {
        comfortText = (TextView) view.findViewById(R.id.comfort_text);
        carWashText = (TextView) view.findViewById(R.id.car_wash_text);
        sportText = (TextView) view.findViewById(R.id.sport_text);
-//       cityButton=(Button)view.findViewById(R.id.cityButton);
-//       cityButton.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               Intent intent = new Intent(getActivity(), choosedCity.class);
-////               intent.putExtra("cityName", cityName);
-////               intent.putExtra("cityCode", weatherId);
-//               startActivity(intent);
-//           }
-//       });
-
-
-
        weatherLayout.setVisibility(View.INVISIBLE);
        horizontalScrollView.setVisibility(View.INVISIBLE);
        locationView.setVisibility(View.INVISIBLE);
@@ -378,10 +364,54 @@ public class MyFragment extends Fragment {
                requestHourWeather(weatherId);
            }
        });
+
+      final   View.OnClickListener itemsOnClick = new View.OnClickListener() {
+
+           public void onClick(View v) {
+               mPopwindow.dismiss();
+               mPopwindow.backgroundAlpha(getActivity(), 1f);
+               switch (v.getId()) {
+                   case R.id.weixinghaoyou:
+                       shareWeChat();
+                       break;
+                   case R.id.pengyouquan:
+                       sharePengYouQuan();
+                       break;
+                   case R.id.qqhaoyou:
+                       shareQQ();
+                       break;
+                   case R.id.qqkongjian:
+                       //shareQQzone();
+                       break;
+                   default:
+                       break;
+               }
+           }
+
+       };
+       shareButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               mPopwindow = new RewritePopwindow(getActivity(), itemsOnClick);
+               mPopwindow.showAtLocation(v,
+                       Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+           }
+       });
+//       weatherLayout.setScrollListener(new ObserveScrollView.ScrollListener() {
+//           @Override
+//           public void scrollOritention(int l, int t, int oldl, int oldt) {
+//               if(t>=(nowLayout.getHeight()+scrollViewTitleLayout.getHeight())){
+//                   titleLayout.setVisibility(View.VISIBLE);
+//               }
+//               if(t<(nowLayout.getHeight()+scrollViewTitleLayout.getHeight())){
+//                   titleLayout.setVisibility(View.GONE);
+//               }
+//           }
+//       });
        bingPicImg = (ImageView) view.findViewById(R.id.bing_pic_img);
-       List<cacheCityList> cityLists=DataSupport.where("cityname=?",cityName).find(cacheCityList.class);
+       List<cacheCity> cityLists=DataSupport.where("cityname=?",cityName).find(cacheCity.class);
        if(!cityLists.isEmpty()){
-           for(cacheCityList cityList:cityLists) {
+           for(cacheCity cityList:cityLists) {
                Glide.with(getContext()).load(cityList.getImgId()).dontAnimate().into(bingPicImg);
 
                titleUpdateTime.setText("最后更新:"+sdf.format(cityList.getUpdateTime()).split(" ")[1]);
@@ -461,8 +491,8 @@ public class MyFragment extends Fragment {
                 Glide.with(this).load(R.drawable.overcast_day).dontAnimate().into(bingPicImg);
                 return R.drawable.overcast_day;
             }else if(weather.now.more.info.substring(1,2).equals("雨")){
-                Glide.with(this).load(R.drawable.rainy_day).dontAnimate().into(bingPicImg);
-                return R.drawable.rainy_day;
+                Glide.with(this).load(R.drawable.day_rainy).dontAnimate().into(bingPicImg);
+                return R.drawable.day_rainy;
             }
             else if(weather.now.more.info.substring(1,2).equals("雪")){
                 Glide.with(this).load(R.drawable.bg_snow).dontAnimate().into(bingPicImg);
@@ -512,5 +542,32 @@ public class MyFragment extends Fragment {
         long diff=now.getTime()-ago.getTime();
         long hourDiff=diff/(1000*60*60);
         return hourDiff;
+    }
+
+    private void shareWeChat(){
+        shareTitleLayout.setVisibility(View.VISIBLE);
+        Bitmap bitmap=Utility.getBitmapByView(weatherLayout);
+        File file=Utility.saveBitmp(bitmap);
+        Utility.shareWeChat(getActivity(),file);
+        shareTitleLayout.setVisibility(View.INVISIBLE);
+    }
+    private void sharePengYouQuan(){
+        shareTitleLayout.setVisibility(View.VISIBLE);
+        Bitmap bitmap=Utility.getBitmapByView(weatherLayout);
+        File file=Utility.saveBitmp(bitmap);
+        Utility.shareWeChatCircle(getActivity(),file);
+        shareTitleLayout.setVisibility(View.INVISIBLE);
+    }
+    private void shareQQ(){
+        shareTitleLayout.setVisibility(View.VISIBLE);
+        Bitmap bitmap=Utility.getBitmapByView(weatherLayout);
+        File file=Utility.saveBitmp(bitmap);
+        Utility.shareQQ(getActivity(),file);
+        shareTitleLayout.setVisibility(View.INVISIBLE);
+    }
+    private void shareQQzone(){
+        Bitmap bitmap=Utility.getBitmapByView(weatherLayout);
+        File file=Utility.saveBitmp(bitmap);
+        Utility.shareQQzone(getActivity(),file);
     }
 }

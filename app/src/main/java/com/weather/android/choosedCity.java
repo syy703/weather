@@ -1,53 +1,34 @@
 package com.weather.android;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.bumptech.glide.Glide;
-import com.weather.android.db.cacheCityList;
+import com.weather.android.Adapter.cityAdapter;
 import com.weather.android.db.chooseCity;
-import com.weather.android.gson.Forecast;
 import com.weather.android.gson.Weather;
-import com.weather.android.service.AutoUpdateService;
 import com.weather.android.util.HttpUtil;
 import com.weather.android.util.Utility;
 
 import org.litepal.crud.DataSupport;
-import org.litepal.util.LogUtil;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -56,10 +37,8 @@ import okhttp3.Response;
 public class choosedCity extends AppCompatActivity {
     private SwipeMenuListView swipeMenuListView;
     private FloatingActionButton addButton;
-    private List<String> dataList = new ArrayList<>();
     private List<chooseCity> chooseCityList = new ArrayList<>();
-    private List<cacheCityList> cacheCityList=new ArrayList<>();
-    private cityAdapter cityAdapter;
+    private com.weather.android.Adapter.cityAdapter cityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +49,10 @@ public class choosedCity extends AppCompatActivity {
         if(actionBar!=null){
             actionBar.hide();
         }
-       // initItem();
         chooseCityList = DataSupport.findAll(com.weather.android.db.chooseCity.class);
-        cacheCityList=DataSupport.findAll(com.weather.android.db.cacheCityList.class);
         cityAdapter = new cityAdapter(choosedCity.this, R.layout.city_item, chooseCityList);
         swipeMenuListView = (SwipeMenuListView) findViewById(R.id.choosedCity_list_view);
         swipeMenuListView.setAdapter(cityAdapter);
-        //cityAdapter.notifyDataSetChanged();
         addButton = (FloatingActionButton) findViewById(R.id.fab);
         addButton.setOnClickListener(new View.OnClickListener() {
 
@@ -92,35 +68,36 @@ public class choosedCity extends AppCompatActivity {
 
             @Override
             public void create(SwipeMenu menu) {
+                switch (menu.getViewType()) {
+                    case 0:
+                        break;
+                    case 1:
+                         SwipeMenuItem deleteItem = new SwipeMenuItem(
+                            getApplicationContext());
+                    // set item background
+                         deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                            0x3F, 0x25)));
+                    // set item width
+                         deleteItem.setWidth(dp2px(60));
+                    // set a icon
+                         deleteItem.setIcon(R.drawable.delete);
+                    // add to nav_menu
 
-                SwipeMenuItem deleteItem = new SwipeMenuItem(
-                        getApplicationContext());
-                // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                        0x3F, 0x25)));
-                // set item width
-                deleteItem.setWidth(dp2px(60));
-                // set a icon
-                deleteItem.setIcon(R.drawable.delete);
-                // add to nav_menu
-
-                menu.addMenuItem(deleteItem);
+                         menu.addMenuItem(deleteItem);
+                        break;
+                }
             }
         };
 
-// set creator
         swipeMenuListView.setMenuCreator(creator);
-        //swipeMenuListView.setAdapter(cityAdapter);
         swipeMenuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
                         DataSupport.deleteAll(chooseCity.class, "cityname=?", chooseCityList.get(position).getCityName());
-                     //   DataSupport.deleteAll(cacheCityList.class,"cityname=?",cacheCityList.get(position).getCityName());
-                        //  List<chooseCity> cityList = DataSupport.findAll(chooseCity.class);
+                      //  DataSupport.deleteAll(cacheCity.class,"cityname=?",chooseCityList.get(position).getCityName());
                         chooseCityList.remove(position);
-                  //      cacheCityList.remove(position);
                         cityAdapter.notifyDataSetChanged();
                         break;
 
@@ -180,17 +157,7 @@ public class choosedCity extends AppCompatActivity {
                 getResources().getDisplayMetrics());
     }
 
-    public void initItem() {
-        Bundle bundle = getIntent().getExtras();
-        if (!bundle.isEmpty() && bundle.size() == 3) {
-            String cityName = bundle.getString("cityName");
-            String weatherId = bundle.getString("weatherId");
-            List<chooseCity> list = DataSupport.where("cityname=?", cityName).find(chooseCity.class);
-            if (list.isEmpty()) {
-                requestWeather(weatherId);
-            }
-        }
-    }
+
 
     public void requestWeather(final String weatherId) {
 

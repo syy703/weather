@@ -19,11 +19,10 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.weather.android.db.Setting;
+import com.mob.MobSDK;
+import com.weather.android.Receiver.AlarmReceiver;
 import com.weather.android.service.AutoUpdateService;
 import com.weather.android.util.Utility;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -107,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
             overridePendingTransition(R.anim.fade,0);
               //DataSupport.deleteAll(Setting.class);
-//            List<cacheCityList> list=DataSupport.findAll(cacheCityList.class);
-//            for(cacheCityList cityList:list){
+//            List<cacheCity> list=DataSupport.findAll(cacheCity.class);
+//            for(cacheCity cityList:list){
 //                System.out.println(cityList.getCityName());
 //                System.out.println(cityList.getImgId());
 //         //       System.out.println(cityList.getWeather());
@@ -153,4 +152,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
     }
+
+
 }

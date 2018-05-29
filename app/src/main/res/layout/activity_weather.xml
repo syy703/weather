@@ -9,7 +9,7 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-
+    android:id="@+id/activity_weather_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white">
@@ -20,14 +20,14 @@
         android:scaleType="fitXY"/>
     <include layout="@layout/title" />
 
-
 <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="55dp">
+    android:layout_marginTop="55dp"
+    >
 
-    <ScrollView
+    <com.weather.android.View.ObserveScrollView
         android:id="@+id/weather_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
-
+            <include layout="@layout/share_title" />
             <include layout="@layout/now"/>
             <include layout="@layout/hour"/>
             <include layout="@layout/forecast"/>
@@ -52,7 +52,7 @@
         </LinearLayout>
 
 
-    </ScrollView>
+    </com.weather.android.View.ObserveScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
