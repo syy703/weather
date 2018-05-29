@@ -134,9 +134,9 @@ public class choosedCity extends AppCompatActivity {
         super.onNewIntent(intent);
         Log.d("choosedCity",getClass().getSimpleName()+"onNewIntent");
         if(intent.getExtras()==null) {
-            List<chooseCity> chooseCityList = DataSupport.findAll(com.weather.android.db.chooseCity.class);
+            List<chooseCity> list = DataSupport.findAll(com.weather.android.db.chooseCity.class);
             chooseCityList.clear();
-            chooseCityList.addAll(chooseCityList);
+            chooseCityList.addAll(list);
             cityAdapter.notifyDataSetChanged();
         }
         handleIntent(intent);
