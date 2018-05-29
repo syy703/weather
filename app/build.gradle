@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -17,23 +16,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
-MobSDK {
-    appKey "25fe89e1697a8"
-    appSecret "14fba1363ddbf5d50d1c8543b63981cc"
-
-    ShareSDK {
-        //平台配置信息
-        devInfo {
-            Wechat {
-                appKey "25fe89e1697a8"
-                appSecret "14fba1363ddbf5d50d1c8543b63981cc"
-            }
-
-
-        }
-    }
-
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

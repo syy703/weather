@@ -19,7 +19,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.mob.MobSDK;
 import com.weather.android.Receiver.AlarmReceiver;
 import com.weather.android.service.AutoUpdateService;
 import com.weather.android.util.Utility;

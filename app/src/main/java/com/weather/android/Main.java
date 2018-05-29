@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ScrollView;
 
-import com.mob.MobSDK;
 import com.weather.android.Adapter.MyPagerAdapter;
 import com.weather.android.Adapter.ViewPagerAdapter;
 import com.weather.android.Fragment.MyFragment;
@@ -29,7 +28,6 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.sharesdk.onekeyshare.OnekeyShare;
 import me.relex.circleindicator.CircleIndicator;
 
 public class Main extends AppCompatActivity {

@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.bumptech.glide.Glide;
-import com.mob.MobSDK;
 import com.weather.android.MainActivity;
 import com.weather.android.R;
 import com.weather.android.View.ObserveScrollView;
@@ -52,7 +51,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -70,7 +68,7 @@ public class MyFragment extends Fragment {
     private Button shareButton;
     private TextView titleUpdateTime;
     private TextView shareTileCity;
-    private TextView shareTitleUpdateTime;
+//    private TextView shareTitleUpdateTime;
     private TextView degreeText;
     private TextView weatherInfoText;
     private TextView nowDataText;
@@ -243,7 +241,7 @@ public class MyFragment extends Fragment {
         String weatherInfo=weather.now.more.info;
         titleCity.setText(cityName);
         shareTileCity.setText(cityName);
-        shareTitleUpdateTime.setText(titleUpdateTime.getText());
+        //shareTitleUpdateTime.setText(titleUpdateTime.getText());
         typefaceUtil.setTypeface(titleCity,false);
         degreeText.setText(degree);
         typefaceUtil.setTypeface(degreeText,false);
@@ -335,7 +333,7 @@ public class MyFragment extends Fragment {
        titleCity = (TextView) view.findViewById(R.id.title_city);
        titleUpdateTime = (TextView) view.findViewById(R.id.title_update_time);
        shareTileCity=(TextView)view.findViewById(R.id.share_title_city);
-       shareTitleUpdateTime=(TextView)view.findViewById(R.id.share_title_update_time);
+//       shareTitleUpdateTime=(TextView)view.findViewById(R.id.share_title_update_time);
        locationView=(TextView)view.findViewById(R.id.locationView);
        degreeText = (TextView) view.findViewById(R.id.degree_text);
        weatherInfoText = (TextView) view.findViewById(R.id.weather_info_text);
