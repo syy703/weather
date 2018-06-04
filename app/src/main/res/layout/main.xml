@@ -19,9 +19,8 @@
         android:id="@+id/cityButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
-        android:backgroundTint="@color/lightGrey"
         android:background="@drawable/topbar_icon_side"/>
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/indicator"
