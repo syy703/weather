@@ -6,7 +6,7 @@
             android:title="城市管理"/>
         <item android:id="@+id/count"
             android:icon="@drawable/count"
-            android:title="天气分析"/>
+            android:title="天气统计"/>
     <item android:id="@+id/about"
         android:icon="@drawable/about"
         android:title="关于"/>

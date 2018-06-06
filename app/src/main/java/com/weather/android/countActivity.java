@@ -107,11 +107,11 @@ public class countActivity extends AppCompatActivity {
                 String info=forecast.more.info;
                 if(info.contains("晴")||info.contains("多云")||info.contains("阴")){
                     goodDay++;
-                }else if(info.contains("雨")||info.contains("雾")||info.contains("霾")){
+                }else if(info.contains("雨")){
                     badDay++;
                 }else if(info.contains("沙")||info.contains("雪")||info.contains("冰")){
                     worstDay++;
-                }else {
+                }else if(info.contains("雾")||info.contains("霾")){
                     unKnowDay++;
                 }
         }
@@ -141,7 +141,7 @@ public class countActivity extends AppCompatActivity {
         if(badDay!=0) {
             PieChartData pcd2 = new PieChartData();
             pcd2.percent = badDay;
-            pcd2.content = "有雨或雾霾天";
+            pcd2.content = "有雨";
             pcd2.color = ContextCompat.getColor(this, R.color.color13);
           //  badDayText.setText(format.format(new BigDecimal(String.valueOf(badDay / 7))));
             badDayText.setText((int)badDay+"/"+7);
@@ -167,7 +167,7 @@ public class countActivity extends AppCompatActivity {
         if(unKnowDay!=0) {
             PieChartData pcd4 = new PieChartData();
             pcd4.percent = unKnowDay;
-            pcd4.content = "未知天气";
+            pcd4.content = "雾霾天";
             pcd4.color = ContextCompat.getColor(this, R.color.color6);
           //  unKnowDayText.setText(format.format(new BigDecimal(String.valueOf(unKnowDay / 7))));
             unKnowDayText.setText((int)unKnowDay+"/"+7);

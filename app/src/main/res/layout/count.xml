@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="center"
-            android:text="有雨或雾霾天"
+            android:text="有雨"
             android:textColor="@color/color6"
             android:textSize="17sp" />
 
@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="center"
-            android:text="未知天气"
+            android:text="雾霾天"
             android:textColor="@color/color6"
             android:textSize="17sp" />
 
